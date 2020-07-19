@@ -25,4 +25,5 @@ public class Role implements Serializable {
     @Enumerated(value = EnumType.STRING)
     private UserRoles roleName;
 
+
 }
