@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>edabudet.by</title>
+    <style>
+      body {
+       margin-left: 3%;
+       margin-right: 3%;
+      }
+      footer{
+        background-color: black;
+        margin: 0;
+      }
+      nav{
+        margin: 0;
+      }
+      </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">edabudet.by</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/index">Home <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/links">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Production
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/product/home">Products</a>
+                <a class="dropdown-item" href="/category/subcategory">Categories</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/manufacturer">Manufactures</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Order</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <a class="btn btn-outline-success" href="/signUp" role="button" style="margin-right: 5px;">Sign up</a>
+            <a class="btn btn-outline-success" href="/signIn" role="button">Sign in</a>
+          </form>
+        </div>
+      </nav>
+    <div class="container-fluid">
+    <br>
+      <h1 class="display-4">Help you find delicious food🍒</h1> 
+      <br>
+<div class="card-deck">
+  <div class="card">
+    <img src="https://img1.hochu.ua/uploads/d7/ac/16/d7ac1619-e24f-44ed-a1f6-acbef2c938fa_640x490_fit.jpg" class="card-img-top">
+    <div class="card-body">
+      <h5 class="card-title">New products!</h5>
+      <p class="card-text">We have added many tasty and healthy products for you. Avocados, peaches, puff pastry, pasta and more are waiting for you.</p>
+      <a href="product/home" class="btn btn-primary">See more</a>
+      <p class="card-text"><small class="text-muted">Last updated 2 hours ago</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://adindex.ru/files2/news/2019_08/274414_1.jpg" class="card-img-top" >
+    <div class="card-body">
+      <h5 class="card-title">New categories!</h5>
+      <p class="card-text">Electronic cigarettes, essential oils, household goods, medical supplies and etc. You will definitely find what you need!</p>
+      <a href="/category/subcategory" class="btn btn-primary">Go to categories</a>
+      <p class="card-text"><small class="text-muted">Last updated 1 day ago</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <img src="http://mtdata.ru/u9/photoB983/20903834181-0/original.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">New manufacturers!!!</h5>
+      <p class="card-text">The countries of Europe, Asia, North and South America and even Australia prepare their goods for you. Waiting for you.</p>
+      <a href="/manufacturer" class="btn btn-primary">See more</a>
+      <p class="card-text"><small class="text-muted">Last updated 3 days ago</small></p>
+    </div>
+  </div>
+</div>
+<br><br>
+    </div>
+<!-- Footer -->
+<footer class="page-footer font-small pt-4">
+  <div class="container" >
+    <ul class="list-unstyled list-inline text-center py-2">
+      <li class="list-inline-item">
+        <h5 class="mb-1" style ="color: cornsilk;">Register for free</h5>
+      </li>
+      <li class="list-inline-item">
+        <a href="signUp" style ="color: cornsilk;" class="btn btn-outline-white btn-rounded">Sign up!</a>
+      </li>
+    </ul>
+  </div>
+  <div class="footer-copyright text-center py-3" style ="color: cornsilk;">© 2020 Copyright:
+    <a href="https://google.com/" style ="color: cornsilk;"> edabudet.by</a>
+  </div>
+</footer>
+</body>  
+</body>
+</html>
