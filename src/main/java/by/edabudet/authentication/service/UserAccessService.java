@@ -18,7 +18,6 @@ public class UserAccessService {
                 && SecurityContextHolder.getContext().getAuthentication().isAuthenticated()
                 && !(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
             isUserAuthenticated = true;
-
         }
         return isUserAuthenticated;
     }
@@ -33,8 +32,7 @@ public class UserAccessService {
         return isCurrentUserIsAdmin;
     }
 
-    public static  boolean hasRole (UserRoles role)
-    {
+    public static  boolean hasRole (UserRoles role){
         return SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(role.name()));
     }

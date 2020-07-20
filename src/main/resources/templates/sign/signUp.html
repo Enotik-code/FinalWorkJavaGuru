@@ -1,10 +1,11 @@
 <!-- Navbar-->
+<html xmlns:th="http://www.thymeleaf.org">
 <header class="header">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/index">edabudet.by</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,39 +26,22 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/product/home">Products</a>
-                <a class="dropdown-item" href="#">Categories</a>
+                <a class="dropdown-item" href="/category/subcategory">Categories</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="/manufacturer">Manufacturer</a>
               </div>
             </li>
             <li class="nav-item">
               <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Order</a>
             </li>
           </ul>
+        </div>
       </nav>
-    
+
     <style>
         .border-md {
     border-width: 2px;
 }
-.btn-facebook {
-    background: #405D9D;
-    border: none;
-}
-
-.btn-facebook:hover, .btn-facebook:focus {
-    background: #314879;
-}
-
-.btn-twitter {
-    background: #42AEEC;
-    border: none;
-}
-
-.btn-twitter:hover, .btn-twitter:focus {
-    background: #1799e4;
-}
-
 body {
     min-height: 100vh;
 }
@@ -104,90 +88,50 @@ select.form-control {
 
         <!-- Registeration Form -->
         <div class="col-md-7 col-lg-6 ml-auto">
-            <form action="#">
+                <label class="errMessage" th:text="${successRegistration}"></label><br />
                 <div class="row">
-
-                    <!-- First Name -->
-                    <div class="input-group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-user text-muted"></i>
-                            </span>
+                    <form action="#" th:action="@{/signUp}" method="POST">
+                        <div class="top-margin">
+                            <label>Login</label>
+                            <label class="errMessage" th:text="${userNameMessage}"></label><br />
+                            <input type="text" class="form-control" name="user_name">
                         </div>
-                        <input id="firstName" type="text" name="firstname" placeholder="First Name" class="form-control bg-white border-left-0 border-md">
-                    </div>
-
-                    <!-- Last Name -->
-                    <div class="input-group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-user text-muted"></i>
-                            </span>
+                        <div class="top-margin">
+                            <label>First Name</label>
+                            <label class="errMessage" th:text="${firstNameMessage}"></label><br />
+                            <input type="text" class="form-control" name="first_name">
                         </div>
-                        <input id="lastName" type="text" name="lastname" placeholder="Last Name" class="form-control bg-white border-left-0 border-md">
-                    </div>
-
-                    <!-- Email Address -->
-                    <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-envelope text-muted"></i>
-                            </span>
+                        <div class="top-margin">
+                            <label>Last Name</label>
+                            <label class="errMessage" th:text="${lastNameMessage}"></label><br />
+                            <input type="text" class="form-control" name="last_name">
                         </div>
-                        <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md">
-                    </div>
-
-                    <!-- Phone Number -->
-                    <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-phone-square text-muted"></i>
-                            </span>
+                        <div class="top-margin">
+                            <label>Email Address <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" name="email">
                         </div>
-                        <select id="countryCode" name="countryCode" style="max-width: 80px" class="custom-select form-control bg-white border-left-0 border-md h-100 font-weight-bold text-muted">
-                            <option value="">44</option>
-                            <option value="">29</option>
-                            <option value="">25</option>
-                            <option value="">33</option>
-                        </select>
-                        <input id="phoneNumber" type="tel" name="phone" placeholder="Phone Number" class="form-control bg-white border-md border-left-0 pl-3">
-                    </div>
-                    <!-- Job -->
-                    <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-envelope text-muted"></i>
-                            </span>
+                        <div class="row top-margin">
+                            <div class="col-sm-6">
+                                <label>Password <span class="text-danger">*</span></label>
+                                <input type="password" class="form-control" name="password">
+                                <label class="errMessage" th:text="${passwordMessage}"></label>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Confirm Password <span class="text-danger">*</span></label>
+                                <input type="password" class="form-control" name="confPassword">
+                                <label class="errMessage" th:text="${confPasswordMessage}"></label>
+                            </div>
                         </div>
-                        <input id="date" type="text" name="date" placeholder="Birthday" onfocus="(this.type='date')" class="textbox-n form-control bg-white border-left-0 border-md">
-                    </div>
-                    <!-- Password -->
-                    <div class="input-group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-lock text-muted"></i>
-                            </span>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-8">
+
+                            </div>
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-action" type="submit">Register</button>
+                            </div>
                         </div>
-                        <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md">
-                    </div>
-
-                    <!-- Password Confirmation -->
-                    <div class="input-group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-lock text-muted"></i>
-                            </span>
-                        </div>
-                        <input id="passwordConfirmation" type="password" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md">
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="form-group col-lg-12 mx-auto mb-0">
-                        <a href="#" class="btn btn-primary btn-block py-2">
-                            <span class="font-weight-bold">Create your account</span>
-                        </a>
-                    </div>
-
+                    </form>
                     <!-- Divider Text -->
                     <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
                         <div class="border-bottom w-100 ml-5"></div>
@@ -197,11 +141,9 @@ select.form-control {
 
                     <!-- Already Registered -->
                     <div class="text-center w-100">
-                        <p class="text-muted font-weight-bold">Already Registered? <a href="#" class="text-primary ml-2">Login</a></p>
+                        <p class="text-muted font-weight-bold">Already Registered? <a href="/signIn" class="text-primary ml-2">Login</a></p>
                     </div>
-
                 </div>
-            </form>
         </div>
     </div>
 </div>

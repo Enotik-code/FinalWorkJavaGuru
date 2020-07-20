@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -51,8 +52,10 @@
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
-            <a class="btn btn-outline-success" href="/signUp" role="button" style="margin-right: 5px;">Sign up</a>
-            <a class="btn btn-outline-success" href="/signIn" role="button">Sign in</a>
+            <a class="btn btn-outline-success" href="/signUp"  th:unless="${IS_AUTHENTICATED}" role="button" style="margin-right: 5px;">Sign up</a>
+            <a class="btn btn-outline-success" href="/signIn" th:unless="${IS_AUTHENTICATED}" role="button">Sign in</a>
+            <a class="btn btn-outline-success" href="#" th:inline="text" th:if="${IS_AUTHENTICATED}">[[${#httpServletRequest.remoteUser}]]></a>
+            <a class="btn" th:href="@{/logout}" th:if="${IS_AUTHENTICATED}">Logout</a>
           </form>
         </div>
       </nav>
