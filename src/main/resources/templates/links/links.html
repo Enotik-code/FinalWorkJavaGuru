@@ -36,8 +36,10 @@
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <a class="btn btn-outline-success" href="/signUp" role="button" style="margin-right: 5px;">Sign up</a>
-            <a class="btn btn-outline-success" href="/signIn" role="button">Sign in</a>
+            <a class="btn btn-outline-success" style="margin-right: 5px;"  th:href="@{/signIn}"  th:unless="${IS_AUTHENTICATED}">Sign in</a>
+            <a class="btn btn-outline-success" th:href="@{/signUp}"  th:unless="${IS_AUTHENTICATED}"> Sign up</a>
+            <a class="btn btn-outline-success" href="/additionalInfo" style="margin-right: 5px;" th:inline="text" th:if="${IS_AUTHENTICATED}">[[${#httpServletRequest.remoteUser}]]</a>
+            <a class="btn btn-outline-success" th:href="@{/logout}"  th:if="${IS_AUTHENTICATED}">Logout</a>
         </form>
     </div>
 </nav>

@@ -1,8 +1,10 @@
 package by.edabudet.controller.sign;
 
 import by.edabudet.authentication.bean.User;
+import by.edabudet.authentication.service.UserAccessService;
 import by.edabudet.authentication.service.UserService;
 import by.edabudet.mail.MailEngine;
+import by.edabudet.strings.SuccessConstants;
 import by.edabudet.validate.UserValidate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,14 +31,17 @@ public class SignController {
     @Autowired
     MailEngine mailEngine;
 
+    @Autowired
+    private UserAccessService userAccessService;
+
     @GetMapping(value = "/signUp")
     public String signUp(){
         return "sign/signUp";
     }
 
-    @PostMapping(value = "/signIn")
-    public ModelAndView signIn(){
-        return new ModelAndView("/sign/signIn");
+    @GetMapping("/signIn")
+    public ModelAndView showLoginPage() {
+        return new ModelAndView("sign/signIn");
     }
 
     @PostMapping(value = "/signUp")
@@ -45,7 +50,7 @@ public class SignController {
                                    @RequestParam(value = "last_name", required = false) String lastName,
                                    @RequestParam(value = "email", required = false) String email,
                                    @RequestParam(value = "password", required = false) String password,
-                                   @RequestParam Optional<String> confPassword) {
+                                   @RequestParam Optional<String> confPassword) throws MessagingException {
         ModelAndView mod = new ModelAndView("sign/signUp");
         User userFromDb = userService.findUserByUserName(userName);
         User newUser = User.builder()
@@ -77,9 +82,10 @@ public class SignController {
         if (UserValidate.checkValidateDataUser(newUser) &&
                 (!confPassword.isPresent() || newUser.getPassword().equals(confPassword.get()))) {
             userService.saveUser(newUser, Optional.empty());
+            mailEngine.sendHTMLTestEmailWithLogo(newUser);
             mod.addObject("successRegistration", "User registered successfully!");
             mod.addObject("user", new User());
-            mod.setViewName("/signUp");
+            mod.setViewName("sign/signUp");
             return new ModelAndView("redirect:/activation");
         }
         return mod;
@@ -93,9 +99,8 @@ public class SignController {
     }
 
     @PostMapping ("/activation")
-    public ModelAndView SendActivationCode(User user,@RequestParam (value = "code")String code) throws MessagingException {
+    public ModelAndView checkActivationCode(User user,@RequestParam (value = "code")String code) {
         ModelAndView mod = new ModelAndView();
-        mailEngine.sendHTMLTestEmailWithLogo(user);
          if( userService.findUserByEmail(user.getEmail()).getActivationCode().equals(code))
              return new ModelAndView("redirect:/additionalInfo");
          else {
