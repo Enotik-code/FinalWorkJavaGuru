@@ -2,14 +2,17 @@ package by.edabudet.controller.sign;
 
 import by.edabudet.authentication.bean.User;
 import by.edabudet.authentication.service.UserService;
+import by.edabudet.mail.MailEngine;
 import by.edabudet.validate.UserValidate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.MessagingException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -23,14 +26,17 @@ public class SignController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    MailEngine mailEngine;
+
     @GetMapping(value = "/signUp")
     public String signUp(){
         return "sign/signUp";
     }
 
-    @GetMapping(value = "/signIn")
-    public String signIn(){
-        return "sign/signIn";
+    @PostMapping(value = "/signIn")
+    public ModelAndView signIn(){
+        return new ModelAndView("/sign/signIn");
     }
 
     @PostMapping(value = "/signUp")
@@ -47,6 +53,7 @@ public class SignController {
                 .firstName(firstName)
                 .lastName(lastName)
                 .email(email)
+                .activationCode(userService.generateActivationCode())
                 .password(password)
                 .dateOfCreated(getCurrentDate())
                 .dateOfModified(getCurrentDate())
@@ -72,8 +79,28 @@ public class SignController {
             userService.saveUser(newUser, Optional.empty());
             mod.addObject("successRegistration", "User registered successfully!");
             mod.addObject("user", new User());
-            mod.setViewName("signUp");
+            mod.setViewName("/signUp");
+            return new ModelAndView("redirect:/activation");
         }
         return mod;
+    }
+
+    @GetMapping("/activation")
+    public ModelAndView openEditor(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("sign/activation");
+        return modelAndView;
+    }
+
+    @PostMapping ("/activation")
+    public ModelAndView SendActivationCode(User user,@RequestParam (value = "code")String code) throws MessagingException {
+        ModelAndView mod = new ModelAndView();
+        mailEngine.sendHTMLTestEmailWithLogo(user);
+         if( userService.findUserByEmail(user.getEmail()).getActivationCode().equals(code))
+             return new ModelAndView("redirect:/additionalInfo");
+         else {
+             mod.addObject("errorCode", "Wrong code!");
+         }
+         return mod;
     }
 }

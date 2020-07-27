@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class UserService {
@@ -56,5 +57,10 @@ public class UserService {
     public static User erasePasswordDataBeforeResponse(User user) {
         user.setPassword("");
         return user;
+    }
+
+    public String generateActivationCode(){
+        Random r = new Random();
+        return  String.valueOf(r.nextInt((999999 - 100000) + 1) + 100000);
     }
 }

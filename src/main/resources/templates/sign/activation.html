@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>edabudet.by</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <style>
+        .outer {
+          border: 0px solid;
+        }
+        .inner {
+          width: 100px;
+          border: 0px solid;
+          margin: auto;
+        }
+        body {
+            background: #BFBFBF;
+            background: linear-gradient(to right, #BFBFBF, #FFDAE0);
+        }
+      </style>    
+
+</head>
+    <body>
+        <div class="container-fluid">
+            <br>
+    <h1 class="display-3 text-center">Enter your activation code</h1>
+    <br><br>
+    <p class="lead text-center">
+        To start working with the service, you need to authorize your mail. Enter the 6-digit code that was sent to your email.
+      </p>
+      <p class="lead text-center">
+        Didn't receive a message? It's okay, we'll send you one more.
+        <a href="#">Resend activation code.</a>
+        <br>
+      </p>
+      <br>
+            <form method="post">
+      <div class="outer">
+      <div class="inner input-group mb-3 w-25 p-3" > 
+        <div class="input-group-prepend">
+            <label class="errMessage" th:text="${errorCode}"></label><br />
+          <span class="input-group-text" id="basic-addon1">Code</span>
+        </div>
+        <input type="number" name="code" id="code" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+      <div style="text-align: center;">
+        <button type="button" class="btn btn-outline-success">Send</button>    
+    </div>
+    </div>  
+            </form>
+        </div>
+    </body>
+    </html>
