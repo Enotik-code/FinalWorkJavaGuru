@@ -26,7 +26,7 @@ public class UserInfoController {
     private UserService userService;
 
     @GetMapping(value = "/additionalInfo")
-    public ModelAndView viewHomePage(){
+    public ModelAndView viewAdditionalInfoPage(){
         ModelAndView mod = new ModelAndView("user/userData");
         mod.addObject(SuccessConstants.IS_AUTHENTICATED, userAccessService.isCurrentUserAuthenticated());
         User user =  userService.findUserByUserName(userService.getCurrentUsername());
