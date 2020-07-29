@@ -171,16 +171,15 @@
                         </div>
                         <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
                         <div th:if="${param.error}">
-                            <p class="lead" style="color: #ea4335">Invalid username and password.</p>
+                            <p class="lead text-center" style="color: #ea4335">Invalid username and password.</p>
                         </div>
                         <div th:if="${param.logout}">
-                            <p class="lead" style="color: #ea4335">You have been logged out.</p>
+                            <p class="lead text-center" style="color: #ea4335">You have been logged out.</p>
                         </div>
                     </form>
                     </form>
                     <br>
-                    <button class="btn btn-lg btn-primary btn-block text-uppercase" type="button" th:href="@{/signUp}">Sign up</button>
-
+                    <a class="btn btn-lg btn-primary btn-block text-uppercase" href="/signUp" role="button">Sign Up</a>
                 </div>
             </div>
         </div>

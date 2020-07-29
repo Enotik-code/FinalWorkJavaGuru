@@ -2,6 +2,7 @@ package by.edabudet.validate;
 
 import by.edabudet.authentication.bean.User;
 import by.edabudet.strings.DataCondition;
+import org.springframework.web.servlet.ModelAndView;
 
 public class UserValidate {
 
@@ -35,4 +36,13 @@ public class UserValidate {
                 validateLastName(user.getLastName()) &&
                 validatePassword(user.getPassword());
     }
+
+/*    public boolean validateUserFromRepeatUserName(User userFromDb){
+        if (userFromDb != null) {
+            mod.addObject("userNameMessage", "User with the same name already exists!");
+            return mod;
+        }
+    }*/
+
+    //todo перенести валидацию в отдельный класс чтобы не было повтора!!!
 }

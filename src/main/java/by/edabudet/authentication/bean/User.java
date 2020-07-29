@@ -39,6 +39,11 @@ public class User implements Serializable {
 
     @Column(name = "email")
     private String email;
+
+    private String gender;
+    private String address;
+    private String patronymic;
+
     private String activationCode;
 
     @Column(name = "active")

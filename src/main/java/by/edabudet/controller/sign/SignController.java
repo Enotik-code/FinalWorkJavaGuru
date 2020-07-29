@@ -4,23 +4,18 @@ import by.edabudet.authentication.bean.User;
 import by.edabudet.authentication.service.UserAccessService;
 import by.edabudet.authentication.service.UserService;
 import by.edabudet.mail.MailEngine;
-import by.edabudet.strings.SuccessConstants;
 import by.edabudet.validate.UserValidate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Optional;
 
 import static by.edabudet.validate.DatePattern.getCurrentDate;
-import static java.time.LocalDate.*;
 
 @Controller
 public class SignController {
@@ -33,6 +28,8 @@ public class SignController {
 
     @Autowired
     private UserAccessService userAccessService;
+
+    private User myUser;
 
     @GetMapping(value = "/signUp")
     public String signUp(){
@@ -82,7 +79,8 @@ public class SignController {
         if (UserValidate.checkValidateDataUser(newUser) &&
                 (!confPassword.isPresent() || newUser.getPassword().equals(confPassword.get()))) {
             userService.saveUser(newUser, Optional.empty());
-            mailEngine.sendHTMLTestEmailWithLogo(newUser);
+            mailEngine.sendHTMLTestEmailWithLogoAndActivateCode(newUser);
+            myUser = newUser;
             mod.addObject("successRegistration", "User registered successfully!");
             mod.addObject("user", new User());
             mod.setViewName("sign/signUp");
@@ -99,10 +97,11 @@ public class SignController {
     }
 
     @PostMapping ("/activation")
-    public ModelAndView checkActivationCode(User user,@RequestParam (value = "code")String code) {
-        ModelAndView mod = new ModelAndView();
-         if( userService.findUserByEmail(user.getEmail()).getActivationCode().equals(code))
-             return new ModelAndView("redirect:/additionalInfo");
+    public ModelAndView checkActivationCode(@RequestParam (value = "code", required = false)String code) throws MessagingException {
+        ModelAndView mod = new ModelAndView("sign/activation");
+         if(myUser.getActivationCode().equals(code)){
+             mailEngine.sendHTMLTestEmailWithLogo(myUser);
+             return new ModelAndView("redirect:/index");}
          else {
              mod.addObject("errorCode", "Wrong code!");
          }

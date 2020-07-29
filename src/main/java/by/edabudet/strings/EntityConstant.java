@@ -6,7 +6,7 @@ public class EntityConstant {
     }
 
     public static final String PRODUCTS = "productList";
-    public static final String CATEGORIES = "categoryList";
+    public static final String CATEGORIES = "subcategoryList";
     public static final String SUBCATEGORIES = "subcategoryList";
     public static final String SUBCATEGORIES_1 = "subcategoryList1";
     public static final String SUBCATEGORIES_2 = "subcategoryList2";

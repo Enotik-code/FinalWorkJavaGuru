@@ -56,9 +56,9 @@ public class ProductController{
         return mod;
     }
 
-    @PostMapping(value = Http.CANCEL)
+    @PostMapping(value = Http.HOME)
     public String clearFilterAndSearch() {
-        return Pages.REDIRECT + Pages.HOME;
+        return Pages.HOME;
     }
 
     @GetMapping(value = Http.SEARCH)

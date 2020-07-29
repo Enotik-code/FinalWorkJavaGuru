@@ -4,23 +4,25 @@
 
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>edabudet.by</title>
     <style>
         .wrapper {
-    text-align: center;
-    }
+            text-align: center;
+        }
+
         .button {
-    position: absolute;
-    top: 50%;
-}
+            position: absolute;
+            top: 50%;
+        }
     </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">edabudet.by</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -32,7 +34,8 @@
                 <a class="nav-link" href="/links">Link</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
                     Production
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -47,70 +50,83 @@
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <a class="btn btn-outline-success" style="margin-right: 5px;"  th:href="@{/signIn}"  th:unless="${IS_AUTHENTICATED}">Sign in</a>
-            <a class="btn btn-outline-success" th:href="@{/signUp}"  th:unless="${IS_AUTHENTICATED}"> Sign up</a>
-            <a class="btn btn-outline-success" href="/additionalInfo" style="margin-right: 5px;" th:inline="text" th:if="${IS_AUTHENTICATED}">[[${#httpServletRequest.remoteUser}]]</a>
-            <a class="btn btn-outline-success" th:href="@{/logout}"  th:if="${IS_AUTHENTICATED}">Logout</a>
+            <a class="btn btn-outline-success" style="margin-right: 5px;" th:href="@{/signIn}"
+               th:unless="${IS_AUTHENTICATED}">Sign in</a>
+            <a class="btn btn-outline-success" th:href="@{/signUp}" th:unless="${IS_AUTHENTICATED}"> Sign up</a>
+            <a class="btn btn-outline-success" href="/additionalInfo" style="margin-right: 5px;" th:inline="text"
+               th:if="${IS_AUTHENTICATED}">[[${#httpServletRequest.remoteUser}]]</a>
+            <a class="btn btn-outline-success" th:href="@{/logout}" th:if="${IS_AUTHENTICATED}">Logout</a>
         </form>
     </div>
 </nav>
 <div class="container-fluid">
     <br>
-    <h1 class="display-4 text-center">Please enter your additional information</h1>
+    <h1 class="display-4 text-center">Your additional information</h1>
     <br><br>
-    <form>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputEmail">Email</label>
-            <input type="email" class="form-control" id="inputEmail" name="input_email">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="inputUserName">User name</label>
-            <input type="text" class="form-control" id="inputUserName" name = "input_user_name">
-          </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="inputFirstName">First name</label>
-              <input type="email" class="form-control" id="inputFirstName" name="input_first_name">
+    <form th:object="${user}" method="get">
+        <form th:object="${user}" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" class="form-control" id="inputEmail" th:value="${user.getEmail()}"
+                           name="input_email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputUserName">User name</label>
+                    <label class="errMessage" th:text="${userNameMessage}"></label><br/>
+                    <input type="text" class="form-control" id="inputUserName" th:value="${user.getUserName()}"
+                           name="input_user_name">
+                </div>
             </div>
-            <div class="form-group col-md-6">
-              <label for="inputSecondName">Second name</label>
-              <input type="text" class="form-control" id="inputSecondName" name="input_second_name">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputFirstName">First name</label>
+                    <label class="errMessage" th:text="${firstNameMessage}"></label>
+                    <input type="email" class="form-control" th:value="${user.getFirstName()}" id="inputFirstName"
+                           name="input_first_name">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputSecondName">Second name</label>
+                    <label class="errMessage" th:text="${lastNameMessage}"></label><br/>
+                    <input type="text" class="form-control" id="inputSecondName" th:value="${user.getLastName()}"
+                           name="input_second_name">
+                </div>
             </div>
-          </div>
-        <div class="form-group">
-          <label for="inputPatronymic">Patronymic</label>
-          <input type="text" class="form-control" id="inputPatronymic" name="input_patronymic">
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="inputAddress">Address</label>
-                <input type="text" class="form-control" id="inputAddress" name="input_adress" placeholder="Belarus, Minsk Pushkina st. 23">
-              </div>
-          <div class="form-group col-md-6">
-            <label for="inputBirthday">Birthday</label>
-            <input type="date" class="form-control" id="inputBirthday" name="input_birthday">
-          </div>
-          <div class="form-group col-md-2">
-            <label for="inputGender">Gender</label>
-            <select id="inputGender" name="input_gender" class="form-control">
-              <option>Male</option>
-              <option>Female</option>
-              <option>Other</option>
-            </select>
-          </div>
-        </div>
-        <br>
-        <div class="wrapper" >
-            <a href="/product/home" type="submit" role="button" class="btn btn-outline-success btn-lg">Next</a>
-            <a href="/product/home" type="submit" role="button" class="btn btn-outline-success btn-lg">Do it later</a>
-        </div> 
-      </form>
+            <div class="form-group">
+                <label for="inputPatronymic">Patronymic</label>
+                <input type="text" class="form-control" id="inputPatronymic" th:value="${user.getEmail()}"
+                       name="input_patronymic">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputAddress">Address</label>
+                    <input type="text" class="form-control" id="inputAddress" th:value="${user.getAddress()}"
+                           name="input_address" placeholder="Belarus, Minsk Pushkina st. 23">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputBirthday">Birthday</label>
+                    <input type="date" class="form-control" th:value="${user.getDateOfBirthday()}" id="inputBirthday"
+                           name="input_birthday">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputGender">Gender</label>
+                    <select id="inputGender" name="input_gender" th:value="${user.getGender()}" class="form-control">
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class="wrapper">
+                <a href="/product/home" type="submit" role="button" class="btn btn-success btn-lg btn-block">Submit</a>
+            </div>
+        </form>
+    </form>
 </div>
 <br>
 <h3 class="text-center lead">
-    <a href="#" >Forgot your password?</a>
+    <a href="#">Forgot your password?</a>
 </h3>
 </body>
 </html>

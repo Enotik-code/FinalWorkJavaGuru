@@ -49,6 +49,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public void updateUserInfo(User user, String userName){
+        userRepository.deleteUserByUserName(userRepository.findUserByUserName(userName).getUserName());
+        userRepository.save(user);
+    }
+
     public String getCurrentUsername() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return auth.getName();
