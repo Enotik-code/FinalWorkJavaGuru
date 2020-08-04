@@ -24,13 +24,10 @@ public class ProductRepository implements SimpleService<Product> {
 
     @Override
     public void save(Product product) throws SQLException {
-        String insert = "INSERT INTO product (" + ProductData.PRODUCT_ID + "," + ProductData.PRODUCT_NAME + "," +
-                ProductData.PRODUCT_SUBCATEGORY + "," + ProductData.PRODUCT_AMOUNT + "," + ProductData.PRODUCT_START_PRICE +
-                "," + ProductData.PRODUCT_DISCOUNT  + "," + ProductData.PRODUCT_PRICE + "," + ProductData.PRODUCT_ID_MANUFACTURER +
-                ") VALUES(?,?,?,?,?,?,?,?)";
+        String insert = "INSERT INTO product product.name, prodict.price, product.idsubcategory, product.amount, product.start_price, product.discount, product.price, product.idmanufacturer VALUES(?,?,?,?,?,?,?,?)";
         try (PreparedStatement preparedStatement = databaseConnection.getDbConnection().prepareStatement(insert)) {
-            preparedStatement.setInt(1, product.getId());
-            preparedStatement.setString(2, product.getName());
+            preparedStatement.setString(1, product.getName());
+            preparedStatement.setString(2, product.getSubcategory());
             preparedStatement.setString(3, product.getSubcategory());
             preparedStatement.setInt(4, product.getAmount());
             preparedStatement.setFloat(5, product.getStarPrice());

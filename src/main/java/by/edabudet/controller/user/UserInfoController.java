@@ -25,15 +25,6 @@ public class UserInfoController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/additionalInfo")
-    public ModelAndView viewAdditionalInfoPage(){
-        ModelAndView mod = new ModelAndView("user/userData");
-        mod.addObject(SuccessConstants.IS_AUTHENTICATED, userAccessService.isCurrentUserAuthenticated());
-        User user =  userService.findUserByUserName(userService.getCurrentUsername());
-        mod.addObject("user", user);
-        return mod;
-    }
-
     @PostMapping(value = "/additionalInfo")
     public ModelAndView updateInfo(@RequestParam(value = "input_email", required = false) String userEmail,
                                    @RequestParam(value = "input_user_name", required = false) String userName,
@@ -44,7 +35,9 @@ public class UserInfoController {
                                    @RequestParam(value = "input_birthday", required = false) Date birthday,
                                    @RequestParam(value = "input_gender", required = false) String gender){
         ModelAndView mod = new ModelAndView("user/userData");
+        //System.out.println(userName);
         mod.addObject(SuccessConstants.IS_AUTHENTICATED, userAccessService.isCurrentUserAuthenticated());
+        mod.addObject("user", userService.findUserByUserName(userService.getCurrentUsername()));
         User userFromDB = userService.findUserByUserName(userService.getCurrentUsername());
         if (userFromDB != null) {
             mod.addObject("userNameMessage", "User with the same name already exists!");
@@ -67,7 +60,7 @@ public class UserInfoController {
                 .dateOfBirthday(birthday)
                 .gender(gender)
                 .build();
-        userService.updateUserInfo(user,userService.getCurrentUsername());
+        userService.updateUserInfo(user);
         return mod;
     }
 }

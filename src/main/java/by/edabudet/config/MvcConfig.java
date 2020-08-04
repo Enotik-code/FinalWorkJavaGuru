@@ -16,18 +16,8 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/index").setViewName("home");
-        registry.addViewController("/header").setViewName("header");
-        registry.addViewController("/addToCart/**").setViewName("addToCart");
-        registry.addViewController("/shopping_cart").setViewName("shopping_cart");
         registry.addViewController("/signIn").setViewName("signIn");
         registry.addViewController("/signUp").setViewName("signUp");
-        registry.addViewController("/saveProduct").setViewName("saveProduct");
-        registry.addViewController("/admin/users").setViewName("admin/users");
-        registry.addViewController("/admin/products").setViewName("admin/products");
-        registry.addViewController("/admin/categories").setViewName("admin/categories");
-        registry.addViewController("/admin/set_discount").setViewName("admin/set_discount");
-        registry.addViewController("/admin/start_page").setViewName("admin/start_page");
     }
 
 }

@@ -25,12 +25,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService)
+      /*  auth.userDetailsService(userDetailsService)
             .passwordEncoder(bCryptPasswordEncoder);
-    }
+    */}
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+/*
 
         http
                 .authorizeRequests()
@@ -52,6 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/");
+*/
 
     }
 
@@ -59,9 +61,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
+/*
         web
                 .ignoring()
                 .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/img/**", "/assets/**", "/styles/**");
 
+*/
     }
 }

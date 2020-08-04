@@ -49,8 +49,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void updateUserInfo(User user, String userName){
-        userRepository.deleteUserByUserName(userRepository.findUserByUserName(userName).getUserName());
+    public void updateUserInfo(User user){
         userRepository.save(user);
     }
 
