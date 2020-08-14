@@ -39,6 +39,18 @@ public class ResultSetConverter {
         return list;
     }
 
+
+    public static List<Subcategory> convertToListSubcategoryJoinCategory(ResultSet resultSet) throws SQLException {
+        List<Subcategory> list = new ArrayList<>();
+        while (resultSet.next()) {
+            Integer id = resultSet.getInt(1);
+            String name = resultSet.getString(3);
+            String category = resultSet.getString(2);
+            list.add(new Subcategory(id, category, name));
+        }
+        return list;
+    }
+
     public static List<Category> convertToListCategory(ResultSet resultSet) throws SQLException {
         List<Category> list = new ArrayList<>();
         while (resultSet.next()) {

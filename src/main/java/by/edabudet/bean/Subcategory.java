@@ -27,5 +27,18 @@ public class Subcategory implements Serializable {
     @NotEmpty(message = "Please fill in the name of the subcategory")
     private String nameSubcategory;
 
+    private String categoryName;
 
+    public Subcategory(int id,String category, String nameSubcategory){
+        this.id = id;
+        this.categoryName = category;
+        this.nameSubcategory = nameSubcategory;
+    }
+
+
+    public Subcategory(int id,int  idcategory, String nameSubcategory){
+        this.id = id;
+        this.IdCategory = idcategory;
+        this.nameSubcategory = nameSubcategory;
+    }
 }

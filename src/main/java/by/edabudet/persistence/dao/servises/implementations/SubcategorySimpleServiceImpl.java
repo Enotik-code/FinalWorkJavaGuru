@@ -15,6 +15,9 @@ public class SubcategorySimpleServiceImpl implements SimpleService<Subcategory> 
     @Autowired
     private SubcategoryRepository subcategoryRepository;
 
+    public List<Subcategory> findAllJoinCategory() throws SQLException {
+        return this.subcategoryRepository.findAllJoinCategory();
+    }
     public List<Subcategory> findAllFirstPart() throws SQLException {
         return this.subcategoryRepository.findAllFirstPart();
     }

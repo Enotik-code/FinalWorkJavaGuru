@@ -10,6 +10,7 @@ public class SqlQuery {
     public static final String GET_PRODUCTS = "select product.name ,product.price,  subcategory.Description, product.dicsount, product.id from product join subcategory on product.idsubcategory = subcategory.id;";
     public static final String GET_MANUFACTURERS = "select * from country ";
     public static final String GET_SUBCATEGORIES = "select * from subcategory";
+    public static final String GET_SUBCATEGORIES_BY_CATEGORY_ID = "select * from subcategory where IdCategory =";
     public static final String GET_SUBCATEGORIES_BY_NAME = "select * from subcategory where Description = '";
     public static final String GET_SUBCATEGORIES_PART_1 = "select * from subcategory where id < 44";
     public static final String GET_SUBCATEGORIES_PART_2 = "select * from subcategory where id > 43";
