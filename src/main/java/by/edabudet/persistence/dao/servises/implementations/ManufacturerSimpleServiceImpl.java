@@ -34,7 +34,10 @@ public class ManufacturerSimpleServiceImpl implements SimpleService<Manufacturer
 
     @Override
     public Manufacturer getByName(String name) throws SQLException {
-        return null;
+        String query = SqlQuery.GET_MANUFACTURERS + " where  country.Description = '" + name + "'";
+        try (ResultSet resultSet = databaseConnection.getDbConnection().createStatement().executeQuery(query)) {
+            return ResultSetConverter.convertToManufacturer(resultSet);
+        }
     }
 
     @Override

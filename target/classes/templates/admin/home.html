@@ -3,11 +3,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/dashboard/">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0">
@@ -15,10 +22,11 @@
     <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="btn  btn-light" style="margin-right: 5px;"  th:href="@{/signIn}"  th:unless="${IS_AUTHENTICATED}">Sign in</a>
-            <a class="btn  btn-light" th:href="@{/signUp}"  th:unless="${IS_AUTHENTICATED}"> Sign up</a>
+            <a class="btn  btn-light" style="margin-right: 5px;" th:href="@{/signIn}" th:unless="${IS_AUTHENTICATED}">Sign
+                in</a>
+            <a class="btn  btn-light" th:href="@{/signUp}" th:unless="${IS_AUTHENTICATED}"> Sign up</a>
             <a class="btn  btn-light" href="#" style="margin-right: 5px;" th:inline="text" th:if="${IS_AUTHENTICATED}">[[${#httpServletRequest.remoteUser}]]</a>
-            <a class="btn  btn-light" th:href="@{/logout}"  th:if="${IS_AUTHENTICATED}">Logout</a>
+            <a class="btn  btn-light" th:href="@{/logout}" th:if="${IS_AUTHENTICATED}">Logout</a>
         </li>
     </ul>
 </nav>
@@ -31,7 +39,7 @@
                     <li class="nav-item">
                         <a class="nav-link active text-body" href="#">
                             <span class="text-body" data-feather="home"></span>
-                            Dashboard <span class="sr-only">(current)</span>
+                            Dashboard <span class="sr-only"></span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -41,14 +49,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-body" href="#">
+                        <a class="nav-link text-body" href="/admin/product">
                             <span class="text-body" data-feather="shopping-cart"></span>
                             Products
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-body" href="#">
-                            <span data-feather="users" class = "text-body"></span>
+                        <a class="nav-link text-body" href="/admin/users">
+                            <span data-feather="users" class="text-body"></span>
                             Users
                         </a>
                     </li>
@@ -64,58 +72,53 @@
                             Manufacturers</a>
                     </li>
                 </ul>
-
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>Saved reports</span>
-                    <a class="d-flex align-items-center text-muted" href="#">
-                        <span data-feather="plus-circle"></span>
-                    </a>
-                </h6>
-                <ul class="nav flex-column mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Current month
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Last quarter
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Social engagement
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Year-end sale
-                        </a>
-                    </li>
-                </ul>
             </div>
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Dashboard</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-outline-secondary">Share</button>
-                        <button class="btn btn-sm btn-outline-secondary">Export</button>
+                <h1 class="display-4 text-center">Often used</h1>
+
+            </div>
+            <br>
+            <p>
+                <a class="btn btn-dark" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Manage products</a>
+                <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Manage categories</button>
+                <button class="btn btn-dark" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Hide</button>
+            </p>
+            <div class="row">
+                <div class="col">
+                    <div class="collapse multi-collapse" id="multiCollapseExample1">
+                        <div class="card card-body">
+                            <p class="card-text"> For complete management of all products, follow the link on the side. Also, here are the most popular product operations.</p>
+                            <div class="row">
+                                <div class="col">
+                            <a href="/admin/product/add" class="card-link">Add product</a>
+                            <a href="#" class="card-link">Delete product</a>
+                            <a href="#" class="card-link">Update product</a>
+                            </div>
+                            </div>
+                        </div>
                     </div>
-                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <span data-feather="calendar"></span>
-                        This week
-                    </button>
+                </div>
+                <div class="col">
+                    <div class="collapse multi-collapse" id="multiCollapseExample2">
+                        <div class="card card-body">
+                            <p class="card-text">For complete management of all categories, follow the link on the side. Also here are popular operations for working with categories.</p>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="#" class="card-link">Show categories</a>
+                                    <a href="#" class="card-link">Update product</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+            <hr class="my-4">
+                <h1 class="display-4 text-center">Statictics! <span class="badge badge-secondary">New</span></h1>
+                <p class="lead">Here you can view statistics for the last few days or weeks, as well as see the number of newly added products and categories.</p>
+                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
         </main>
     </div>
 </div>
@@ -123,7 +126,9 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 <script src="../../assets/js/vendor/popper.min.js"></script>
 <script src="../../dist/js/bootstrap.min.js"></script>
@@ -134,37 +139,7 @@
     feather.replace()
 </script>
 
-<!-- Graphs -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-<script>
-    var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            datasets: [{
-                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-                lineTension: 0,
-                backgroundColor: 'transparent',
-                borderColor: '#007bff',
-                borderWidth: 4,
-                pointBackgroundColor: '#007bff'
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: false
-                    }
-                }]
-            },
-            legend: {
-                display: false,
-            }
-        }
-    });
-</script>
+
 </body>
 
 </html>

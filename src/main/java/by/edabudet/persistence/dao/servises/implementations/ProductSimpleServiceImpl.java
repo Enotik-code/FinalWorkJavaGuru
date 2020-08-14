@@ -20,6 +20,11 @@ public class ProductSimpleServiceImpl implements SimpleService<Product> {
 
     @Override
     public void save(Product obj) throws SQLException {
+        String query;
+        query = SqlQuery.SAVE_PRODUCTS +"'" + obj.getName() + "','" + obj.getIdSubcategory() + "','" +
+                obj.getAmount() + "','" + obj.getStarPrice() + "','" + obj.getDiscount() + "','" +
+                obj.getPrice() + "','" + obj.getIdManufacturer() + "')";
+        databaseConnection.getDbConnection().createStatement().executeQuery(query);
     }
 
     @Override

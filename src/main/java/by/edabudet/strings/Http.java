@@ -28,4 +28,10 @@ public class Http {
     public static final String SORTING_CATEGORY = "sortingCategory";
     public static final String SORTING_DISCOUNT = "sortingDiscount";
 
+    public static final String SORTING_PRICE_ADMIN = "SortingPrice";
+    public static final String SORTING_NAME_ADMIN = "SortingName";
+
+    public static final String SORTING_CATEGORY_ADMIN = "SortingCategory";
+    public static final String SORTING_DISCOUNT_ADMIN = "SortingDiscount";
+
 }

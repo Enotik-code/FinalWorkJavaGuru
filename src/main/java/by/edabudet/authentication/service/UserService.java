@@ -6,12 +6,15 @@ import by.edabudet.authentication.bean.User;
 import by.edabudet.authentication.bean.UserRoles;
 import by.edabudet.authentication.repository.RoleRepository;
 import by.edabudet.authentication.repository.UserRepository;
+import by.edabudet.config.DatabaseConection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
@@ -28,10 +31,6 @@ public class UserService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    public User findUserByEmail(String email) {
-        return userRepository.findUserByEmail(email);
-    }
 
     public User findUserByUserName(String userName) {
         return userRepository.findUserByUserName(userName);
@@ -50,7 +49,7 @@ public class UserService {
     }
 
     public void updateUserInfo(User user){
-        userRepository.save(user);
+       // userRepository.save(user);
     }
 
     public String getCurrentUsername() {
@@ -58,13 +57,26 @@ public class UserService {
         return auth.getName();
     }
 
-    public static User erasePasswordDataBeforeResponse(User user) {
-        user.setPassword("");
-        return user;
-    }
-
     public String generateActivationCode(){
         Random r = new Random();
         return  String.valueOf(r.nextInt((999999 - 100000) + 1) + 100000);
+    }
+
+    public void deactivateUser(Long id) throws SQLException {
+        String query = " update users " +
+                "set users.active = 0 " +
+                "where users.id_user = " + id;
+        try (PreparedStatement preparedStatement = DatabaseConection.getDbConnection().prepareStatement(query)) {
+            preparedStatement.execute();
+        }
+    }
+
+    public void activateUser(Long id) throws SQLException {
+        String query = "update users " +
+                "set users.active = 1" +
+                " where users.id_user = " + id;
+        try (PreparedStatement preparedStatement = DatabaseConection.getDbConnection().prepareStatement(query)) {
+            preparedStatement.execute();
+        }
     }
 }

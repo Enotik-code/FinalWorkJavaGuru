@@ -9,8 +9,9 @@ import java.io.Serializable;
 
 @Data
 @Builder
-@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@NoArgsConstructor
 @Table(name = "product")
 public class Product implements Serializable {
     @Id
@@ -25,6 +26,9 @@ public class Product implements Serializable {
 
     @Column(name = "subcategory")
     private String subcategory;
+
+    @Column(name = "idsubcategory")
+    private int idSubcategory;
 
     @Column(name = "amount")
     private int amount;
@@ -43,26 +47,25 @@ public class Product implements Serializable {
     @Column(name = "idmanufacturer")
     private int idManufacturer;
 
-    public Product(int id, String name, String subcategory, int amount, float starPrice, float discount, float price, int idManufacturer){
-        this.id = id;
-        this.name = name;
-        this.subcategory = subcategory;
-        this.amount = amount;
-        this.starPrice = starPrice;
-        this.discount = discount;
-        this.price = countingPrice(starPrice, discount);
-        this.idManufacturer = idManufacturer;
-    }
-
-
-    public Product(String name, Float price, String subcategory, Float discount) {
+    public Product(String name, Float price, String subcategory, Float discount, int id) {
         this.name = name;
         this.price = price;
         this.subcategory = subcategory;
         this.discount = discount;
+        this.id = id;
+    }
+
+    public Product(String productName, Long price, Long discount, Long amount, int subcategoryId, int manufacturerId) {
+        this.name = productName;
+        this.starPrice = price;
+        this.discount = discount;
+        this.price = countingPrice(price, discount);
+        this.amount = Math.toIntExact(amount);
+        this.idManufacturer = manufacturerId;
+        this.idSubcategory = subcategoryId;
     }
 
     public float countingPrice(float starPrice, float discount){
-        return (starPrice * discount)/100;
+        return (starPrice - (starPrice * discount)/100);
     }
 }

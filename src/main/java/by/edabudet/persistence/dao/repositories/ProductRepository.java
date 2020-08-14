@@ -4,8 +4,6 @@ import by.edabudet.bean.Product;
 import by.edabudet.config.DatabaseConection;
 import by.edabudet.converters.ResultSetConverter;
 import by.edabudet.persistence.dao.servises.interfaces.SimpleService;
-import by.edabudet.strings.ProductData;
-
 
 import by.edabudet.strings.SqlQuery;
 import org.apache.log4j.Logger;
@@ -23,24 +21,20 @@ public class ProductRepository implements SimpleService<Product> {
     static Logger log = Logger.getLogger(ProductRepository.class.getName());
 
     @Override
-    public void save(Product product) throws SQLException {
-        String insert = "INSERT INTO product product.name, prodict.price, product.idsubcategory, product.amount, product.start_price, product.discount, product.price, product.idmanufacturer VALUES(?,?,?,?,?,?,?,?)";
-        try (PreparedStatement preparedStatement = databaseConnection.getDbConnection().prepareStatement(insert)) {
-            preparedStatement.setString(1, product.getName());
-            preparedStatement.setString(2, product.getSubcategory());
-            preparedStatement.setString(3, product.getSubcategory());
-            preparedStatement.setInt(4, product.getAmount());
-            preparedStatement.setFloat(5, product.getStarPrice());
-            preparedStatement.setFloat(6, product.getDiscount());
-            preparedStatement.setFloat(7, product.getPrice());
-            preparedStatement.setInt(8, product.getIdManufacturer());
-            if (!preparedStatement.execute()) {
-                log.info("Product: '{}' successfully added! " + product.getName());
-            } else {
-                log.error("Product: '{}' has not been added. "+ product.getName());
-            }
+    public void save(Product obj) throws SQLException {
+        String query = SqlQuery.SAVE_PRODUCTS +"'" + obj.getName() + "'," + obj.getIdSubcategory() + "," +
+                obj.getAmount() + "," + obj.getStarPrice() + "," + obj.getDiscount() + "," +
+                obj.getPrice() + "," + obj.getIdManufacturer() + ")";
+        try (PreparedStatement preparedStatement = databaseConnection.getDbConnection().prepareStatement(query)) {
+            preparedStatement.execute();
         }
     }
+     public void deleteProductById(Integer id) throws SQLException{
+        String query = "delete from product where id = " + id;
+         try (PreparedStatement preparedStatement = databaseConnection.getDbConnection().prepareStatement(query)) {
+             preparedStatement.execute();
+         }
+     }
 
     @Override
     public List<Product> findAll() throws SQLException {

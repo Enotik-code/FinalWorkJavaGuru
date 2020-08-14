@@ -63,7 +63,7 @@
     <br>
     <h1 class="display-4 text-center">Your additional information</h1>
     <br><br>
-    <form th:action="@{/additionalInfo}" th:object="${user}" method="POST">
+    <form th:action="@{/additionalInfo}" th:object="${user}" method="post">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail">Email</label>
@@ -81,7 +81,7 @@
                 <div class="form-group col-md-6">
                     <label for="inputFirstName">First name</label>
                     <label class="errMessage" th:text="${firstNameMessage}"></label>
-                    <input type="email" class="form-control" th:value="${user.getFirstName()}" id="inputFirstName"
+                    <input type="text" class="form-control" th:value="${user.getFirstName()}" id="inputFirstName"
                            name="input_first_name">
                 </div>
                 <div class="form-group col-md-6">
@@ -118,7 +118,7 @@
             </div>
             <br>
             <div class="wrapper">
-                <a href="/additionalInfo" type="submit" role="button" class="btn btn-success btn-lg btn-block">Submit</a>
+                <button href="/index" type="submit" role="button" class="btn btn-success btn-lg btn-block">Submit</button>
             </div>
     </form>
 </div>

@@ -22,7 +22,8 @@ public class ResultSetConverter {
             String subcategory = resultSet.getString(3);
             Float discount = resultSet.getFloat(4);
             Float price = resultSet.getFloat(2);
-            list.add(new Product(name, price, subcategory, discount));
+            Integer id = resultSet.getInt(5);
+            list.add(new Product(name, price, subcategory, discount, id));
         }
         return list;
     }
@@ -83,5 +84,16 @@ public class ResultSetConverter {
                     .build();
         }
         return subcategory;
+    }
+
+    public static Manufacturer convertToManufacturer(ResultSet resultSet) throws SQLException {
+        Manufacturer manufacturer = null;
+        while (resultSet.next()) {
+            manufacturer = Manufacturer.builder()
+                    .id(resultSet.getInt(1))
+                    .name(resultSet.getString(2))
+                    .build();
+        }
+        return manufacturer;
     }
 }
