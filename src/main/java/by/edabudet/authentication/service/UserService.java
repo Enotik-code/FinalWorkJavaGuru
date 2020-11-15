@@ -7,12 +7,14 @@ import by.edabudet.authentication.bean.UserRoles;
 import by.edabudet.authentication.repository.RoleRepository;
 import by.edabudet.authentication.repository.UserRepository;
 import by.edabudet.config.DatabaseConection;
+import by.edabudet.validate.DatePattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -49,7 +51,22 @@ public class UserService {
     }
 
     public void updateUserInfo(User user){
-       // userRepository.save(user);
+        String query = "update users set " +
+                //"users.date_of_birthday = "+ Date.valueOf(user.getDateOfBirthday().toString())  +
+                //"  users.date_of_modified = " + user.getDateOfModified() +
+                "  users.email = '"+ user.getEmail() +
+                "' , users.first_name = '" + user.getFirstName() +
+                "' , users.last_name = '" + user.getLastName() +
+                "' , users.user_name = '" + user.getUserName() +
+                "' , users.address = '" + user.getAddress() +
+                "' , users.gender = '" + user.getGender() +
+                "' , users.patronymic = '" + user.getPatronymic() +
+                "' where users.id_user = " + user.getId();
+        try (PreparedStatement preparedStatement = DatabaseConection.getDbConnection().prepareStatement(query)) {
+            preparedStatement.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public String getCurrentUsername() {

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.SQLException;
@@ -31,18 +32,39 @@ public class AdminCategoryController {
     @Autowired
     private SubcategoryRepository subcategoryRepository;
 
+
     @GetMapping(value = "admin/category")
     public ModelAndView categoryPage() throws SQLException {
-        ModelAndView modelAndView = new ModelAndView("/admin/subcategory/startPage");
+        ModelAndView modelAndView = new ModelAndView("admin/subcategory/subcategoryAdmin");
         modelAndView.addObject(SuccessConstants.IS_AUTHENTICATED, userAccessService.isCurrentUserAuthenticated());
         modelAndView.addObject("subcategoryList", subcategorySimpleService.findAllJoinCategory());
         return modelAndView;
     }
 
     @PostMapping(value = "deleteSubcategory" + "/{id}")
-    public ModelAndView activateUser(@PathVariable(name = "id") Long id) throws SQLException {
+    public ModelAndView deleteSubcategory(@PathVariable(name = "id") Long id) throws SQLException {
         subcategoryRepository.delete(id);
         return new ModelAndView(Pages.REDIRECT + "admin/category");
     }
 
+    @GetMapping(value = "admin/category/add")
+    public ModelAndView addCategory() throws SQLException {
+        ModelAndView modelAndView = new ModelAndView("admin/subcategory/addSubcategory");
+        modelAndView.addObject(SuccessConstants.IS_AUTHENTICATED, userAccessService.isCurrentUserAuthenticated());
+        modelAndView.addObject("categoryList", categorySimpleService.findAll());
+        return modelAndView;
+    }
+
+    @PostMapping(value = "admin/category/add")
+    public ModelAndView addCategoryPost(@RequestParam(value = "category", required = false) String category,
+                                        @RequestParam(value = "subcategory", required = false) String subcategory) throws SQLException {
+        ModelAndView modelAndView = new ModelAndView("admin/subcategory/addSubcategory");
+        modelAndView.addObject(SuccessConstants.IS_AUTHENTICATED, userAccessService.isCurrentUserAuthenticated());
+        Integer categoryId =  categorySimpleService.getByName(category).getId();
+        subcategoryRepository.save(Subcategory.builder()
+                .IdCategory(categoryId)
+                .nameSubcategory(subcategory)
+                .build());
+        return new ModelAndView("redirect:/admin/category");
+    }
 }

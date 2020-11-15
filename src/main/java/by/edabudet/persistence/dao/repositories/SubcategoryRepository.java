@@ -18,7 +18,11 @@ public class SubcategoryRepository implements SimpleService<Subcategory> {
 
     @Override
     public void save(Subcategory obj) throws SQLException {
-
+        String query = "insert subcategory(IdCategory,Description) values (" + obj.getIdCategory()
+                + ", '" +  obj.getNameSubcategory() +"')";
+        try (PreparedStatement preparedStatement = DatabaseConection.getDbConnection().prepareStatement(query)) {
+            preparedStatement.execute();
+        }
     }
 
     private DatabaseConection databaseConnection = new DatabaseConection();
@@ -40,7 +44,8 @@ public class SubcategoryRepository implements SimpleService<Subcategory> {
 
     public List<Subcategory> findAllJoinCategory() throws SQLException {
         String query = "select subcategory.Id , category.Descrition, subcategory.Description from subcategory" +
-                " join category on category.Id = subcategory.IdCategory";
+                " join category on category.Id = subcategory.IdCategory " +
+                "order by category.Descrition";
         try (ResultSet resultSet = databaseConnection.getDbConnection().createStatement().executeQuery(query)) {
             return ResultSetConverter.convertToListSubcategoryJoinCategory(resultSet);
         }

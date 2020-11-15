@@ -62,6 +62,16 @@ public class ResultSetConverter {
     }
 
 
+    public static Category convertToCategory(ResultSet resultSet) throws SQLException {
+        while (resultSet.next()) {
+            return Category.builder()
+                    .id(resultSet.getInt(1))
+                    .build();
+        }
+        return null;
+    }
+
+
 
     public static List<Manufacturer> convertToListManufacturer(ResultSet resultSet) throws SQLException {
         List<Manufacturer> list = new ArrayList<>();

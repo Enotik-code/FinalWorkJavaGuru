@@ -9,6 +9,7 @@ import by.edabudet.strings.SqlQuery;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -34,7 +35,10 @@ public class CategorySimpleServiceImpl implements SimpleService<Category> {
 
     @Override
     public Category getByName(String name) throws SQLException {
-        return null;
+        String query = "select * from category where category.Descrition = '" + name + "'";
+        try (ResultSet resultSet = databaseConnection.getDbConnection().createStatement().executeQuery(query)) {
+            return ResultSetConverter.convertToCategory(resultSet);
+        }
     }
 
     @Override

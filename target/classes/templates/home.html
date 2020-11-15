@@ -57,152 +57,117 @@
     </div>
     <div class="row container-fluid">
         <form class="form-inline" action="#" th:action="@{search}" method="get">
-            <input class="form-control mr-sm-2" type="text"  name="name" placeholder="Enter name"/>&nbsp;&nbsp;&nbsp;
-            <button class="btn btn-outline-success my-2 my-sm-0" style="margin-right: 5px;"  type="submit">Search</button>
+            <input class="form-control mr-sm-2" type="text" name="name" placeholder="Enter name"/>&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-outline-success my-2 my-sm-0" style="margin-right: 5px;" type="submit">Search
+            </button>
         </form>
         <form class="form-inline" action="/product/home">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cancel</button>
         </form>
     </div>
     <br>
-    <div class="row">
-        <div class="col-md-10">
-            <div class="shadow p-3 mb-5 bg-white rounded">
-                <div class="container">
-                    <table class="table table-striped table-hover table-bordered ">
-                        <thead class="thead-dark">
-                        <tr class="active">
-                            <form action="#" th:action="@{/sortingName}" th:object="${product}" method="post">
-                                <th scope="col">
-                                    <div class="dropdown">
-                                        <a class="btn btn-secondary dropdown-toggle" href="#" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Name
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                            <button class="dropdown-item" type="submit" name="sortByName" value="orderName">A-Z</button>
-                                            <button class="dropdown-item" type="submit" name="sortByName" value="reverseOrderName">Z-A</button>
-                                        </div>
-                                    </div>
-                                </th>
-                            </form>
-                            <form action="#" th:action="@{/sortingPrice}" th:object="${product}" method="post">
-                                <th scope="col">
-                                    <div class="dropdown">
-                                        <a class="btn btn-secondary dropdown-toggle" href="#" id="dropdownMenuForPrice"
-                                           data-toggle="dropdown"
-                                           aria-haspopup="true" aria-expanded="false">
-                                            Price
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuForPrice">
-                                            <button class="dropdown-item" type="submit" name="sortByPrice"
-                                                    value="orderPrice">Top ->
-                                                Down
-                                            </button>
-                                            <button class="dropdown-item" type="submit" name="sortByPrice"
-                                                    value="reverseOrderPrice">
-                                                Down -> Up
-                                            </button>
-                                        </div>
-                                    </div>
-                                </th>
-                            </form>
-                            <form action="#" th:action="@{/sortingCategory}" th:object="${product}" method="post">
-                                <th scope="col">
-                                    <div class="dropdown">
-                                        <a class="btn btn-secondary  dropdown-toggle" href="#" id="dropdownMenuForSubcategory"
-                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Subcategory
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuForSubcategory">
-                                            <button class="dropdown-item" type="submit" name="sortByCategory"
-                                                    value="orderCategory">
-                                                A-Z
-                                            </button>
-                                            <button class="dropdown-item" type="submit" name="sortByCategory"
-                                                    value="reverseOrderCategory">Z-A
-                                            </button>
-                                        </div>
-                                    </div>
-                                </th>
-                            </form>
-                            <form action="#" th:action="@{/sortingDiscount}" th:object="${product}" method="post">
-                                <th scope="col">
-                                    <div class="dropdown">
-                                        <a class="btn btn-secondary  dropdown-toggle" href="#" id="dropdownMenuForDiscount"
-                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Discount
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuForDiscount">
-                                            <button class="dropdown-item" type="submit" name="sortByDiscount"
-                                                    value="orderDiscount">Top
-                                                -> Down
-                                            </button>
-                                            <button class="dropdown-item" type="submit" name="sortByDiscount"
-                                                    value="reverseOrderDiscount">Down -> Up
-                                            </button>
-                                        </div>
-                                    </div>
-                                </th>
-                            </form>
+        <div class="shadow p-3 mb-5 bg-white rounded">
+                <table class="table table-striped table-hover table-bordered ">
+                    <thead class="thead-dark">
+                    <tr class="active">
+                        <form action="#" th:action="@{/sortingName}" th:object="${product}" method="post">
                             <th scope="col">
-                               <a class="btn btn-secondary">Actions</a>
+                                <div class="dropdown">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" id="dropdownMenu1"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Name
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <button class="dropdown-item" type="submit" name="sortByName" value="orderName">
+                                            A-Z
+                                        </button>
+                                        <button class="dropdown-item" type="submit" name="sortByName"
+                                                value="reverseOrderName">Z-A
+                                        </button>
+                                    </div>
+                                </div>
                             </th>
-                        </tr>
-                        <tbody>
-                        <tr th:each="product : ${productList}">
-                            <td th:text="${product.name}">Name</td>
-                            <td th:text="${product.price}">Price</td>
-                            <td th:text="${product.subcategory}">Subcategory</td>
-                            <td th:text="${product.discount}">Discount</td>
-                            <td>
-                                <form th:action="@{'/addToCart/' + ${product.id}}" th:object="${product}" method="post">
-                                    <input type="number" min="1" max="100" value="1" name="countOfGoods">
-                                    <input type="submit" value="Buy">
-                                </form>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                        </form>
+                        <form action="#" th:action="@{/sortingPrice}" th:object="${product}" method="post">
+                            <th scope="col">
+                                <div class="dropdown">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" id="dropdownMenuForPrice"
+                                       data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        Price
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuForPrice">
+                                        <button class="dropdown-item" type="submit" name="sortByPrice"
+                                                value="orderPrice">Top ->
+                                            Down
+                                        </button>
+                                        <button class="dropdown-item" type="submit" name="sortByPrice"
+                                                value="reverseOrderPrice">
+                                            Down -> Up
+                                        </button>
+                                    </div>
+                                </div>
+                            </th>
+                        </form>
+                        <form action="#" th:action="@{/sortingCategory}" th:object="${product}" method="post">
+                            <th scope="col">
+                                <div class="dropdown">
+                                    <a class="btn btn-secondary  dropdown-toggle" href="#"
+                                       id="dropdownMenuForSubcategory"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Subcategory
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuForSubcategory">
+                                        <button class="dropdown-item" type="submit" name="sortByCategory"
+                                                value="orderCategory">
+                                            A-Z
+                                        </button>
+                                        <button class="dropdown-item" type="submit" name="sortByCategory"
+                                                value="reverseOrderCategory">Z-A
+                                        </button>
+                                    </div>
+                                </div>
+                            </th>
+                        </form>
+                        <form action="#" th:action="@{/sortingDiscount}" th:object="${product}" method="post">
+                            <th scope="col">
+                                <div class="dropdown">
+                                    <a class="btn btn-secondary  dropdown-toggle" href="#" id="dropdownMenuForDiscount"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Discount
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuForDiscount">
+                                        <button class="dropdown-item" type="submit" name="sortByDiscount"
+                                                value="orderDiscount">Top
+                                            -> Down
+                                        </button>
+                                        <button class="dropdown-item" type="submit" name="sortByDiscount"
+                                                value="reverseOrderDiscount">Down -> Up
+                                        </button>
+                                    </div>
+                                </div>
+                            </th>
+                        </form>
+                        <th scope="col">
+                            <a class="btn btn-secondary">Actions</a>
+                        </th>
+                    </tr>
+                    <tbody>
+                    <tr th:each="product : ${productList}">
+                        <td th:text="${product.name}">Name</td>
+                        <td th:text="${product.price}">Price</td>
+                        <td th:text="${product.subcategory}">Subcategory</td>
+                        <td th:text="${product.discount}">Discount</td>
+                        <td>
+                            <form th:action="@{'/addToCart/' + ${product.id}}" th:object="${product}" method="post">
+                                <input type="number" min="1" max="100" value="1" name="countOfGoods">
+                                <input type="submit" value="Buy">
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
         </div>
-        <div class="col-md-2">
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                <label class="custom-control-label" for="customCheck1">Discount availability</label>
-            </div>
-            <br>
-            <div class="dropdown" style="color: darkgray;">
-                <button class="btn btn-secondary dropdown-toggle btn-sm btn-block" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Manufactures
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" th:each="manufacturer : ${manufacturersList}"
-                       th:text="${manufacturer.name}" href="#"></a>
-                </div>
-            </div>
-            <br>
-            <div class="dropdown" style="color: darkgray;">
-                <button class="btn btn-secondary dropdown-toggle btn-sm btn-block" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Category
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" th:each="category : ${categoryList}" th:text="${category.name}"
-                       href="#"></a>
-                </div>
-            </div>
-            <br>
-            <form class="form-inline" action="#" th:action="@{/search}" method="get">
-                <button class="btn btn-outline-success btn-sm btn-block" type="submit">Enter</button>
-            </form>
-            <br>
-            <form class="form-inline" action="#" th:action="@{home}" method="get">
-                <button class="btn btn-secondary btn-sm btn-block" type="submit">Cancel</button>
-            </form>
-        </div>
-    </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
             crossorigin="anonymous"></script>

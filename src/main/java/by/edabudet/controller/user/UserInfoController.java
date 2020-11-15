@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Controller
 public class UserInfoController {
@@ -28,6 +28,7 @@ public class UserInfoController {
     @GetMapping(value = "/additionalInfo")
     public ModelAndView updateUserInfo(){
         ModelAndView modelAndView = new ModelAndView("user/userData");
+        modelAndView.addObject(SuccessConstants.IS_AUTHENTICATED, userAccessService.isCurrentUserAuthenticated());
         modelAndView.addObject("user", userService.findUserByUserName(userService.getCurrentUsername()));
         return modelAndView;
     }
@@ -45,11 +46,8 @@ public class UserInfoController {
         mod.addObject(SuccessConstants.IS_AUTHENTICATED, userAccessService.isCurrentUserAuthenticated());
         mod.addObject("user", userService.findUserByUserName(userService.getCurrentUsername()));
         User userFromDB = userService.findUserByUserName(userService.getCurrentUsername());
-        Date dateOfBirthday = new SimpleDateFormat("dd-MM-yyyy").parse("01-01-2000");
-        if(!(birthday == "")) {
-            dateOfBirthday = new SimpleDateFormat("dd-MM-yyyy").parse(birthday);
-        }
         User user = User.builder()
+                .id(userFromDB.getId())
                 .dateOfModified(DatePattern.getCurrentDate())
                 .email(userEmail)
                 .userName(userName)
@@ -57,10 +55,10 @@ public class UserInfoController {
                 .lastName(secondName)
                 .patronymic(patronymic)
                 .address(address)
-                .dateOfBirthday(dateOfBirthday)
+                //.dateOfBirthday(Date.valueOf(birthday))
                 .gender(gender)
                 .build();
         userService.updateUserInfo(user);
-        return mod;
+        return new ModelAndView("redirect:/additionalInfo");
     }
 }

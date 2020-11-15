@@ -9,6 +9,7 @@ import by.edabudet.strings.SqlQuery;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -21,7 +22,10 @@ public class ManufacturerSimpleServiceImpl implements SimpleService<Manufacturer
 
     @Override
     public void save(Manufacturer obj) throws SQLException {
-
+        String query = "insert country(Description) values ('" + obj.getName() + "')";
+        try (PreparedStatement preparedStatement = DatabaseConection.getDbConnection().prepareStatement(query)) {
+            preparedStatement.execute();
+        }
     }
 
     @Override
@@ -42,7 +46,10 @@ public class ManufacturerSimpleServiceImpl implements SimpleService<Manufacturer
 
     @Override
     public void delete(Long id) throws SQLException {
-
+        String query = "delete from country where Id =" + id;
+        try (PreparedStatement preparedStatement = DatabaseConection.getDbConnection().prepareStatement(query)) {
+            preparedStatement.execute();
+        }
     }
 
     @Override

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
+import java.sql.SQLException;
 import java.util.Optional;
 
 import static by.edabudet.validate.DatePattern.getCurrentDate;
@@ -47,7 +48,7 @@ public class SignController {
                                    @RequestParam(value = "last_name", required = false) String lastName,
                                    @RequestParam(value = "email", required = false) String email,
                                    @RequestParam(value = "password", required = false) String password,
-                                   @RequestParam Optional<String> confPassword) throws MessagingException {
+                                   @RequestParam Optional<String> confPassword) throws MessagingException, SQLException {
         ModelAndView mod = new ModelAndView("sign/signUp");
         User userFromDb = userService.findUserByUserName(userName);
         User newUser = User.builder()
@@ -80,6 +81,7 @@ public class SignController {
                 (!confPassword.isPresent() || newUser.getPassword().equals(confPassword.get()))) {
             userService.saveUser(newUser, Optional.empty());
             mailEngine.sendHTMLTestEmailWithLogoAndActivateCode(newUser);
+            userService.deactivateUser(newUser.getId());
             myUser = newUser;
             mod.addObject("successRegistration", "User registered successfully!");
             mod.addObject("user", new User());
@@ -97,9 +99,11 @@ public class SignController {
     }
 
     @PostMapping ("/activation")
-    public ModelAndView checkActivationCode(@RequestParam (value = "code", required = false)String code) throws MessagingException {
+    public ModelAndView checkActivationCode(@RequestParam (value = "code", required = false)String code)
+            throws MessagingException, SQLException {
         ModelAndView mod = new ModelAndView("sign/activation");
          if(myUser.getActivationCode().equals(code)){
+             userService.activateUser(myUser.getId());
              mailEngine.sendHTMLTestEmailWithLogo(myUser);
              return new ModelAndView("redirect:/index");}
          else {

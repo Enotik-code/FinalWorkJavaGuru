@@ -38,7 +38,7 @@ public class AdminProductController {
 
     @GetMapping(value = "/admin/product")
     public ModelAndView adminProductPage() throws SQLException {
-        ModelAndView modelAndView = new ModelAndView( "admin/product/startPage");
+        ModelAndView modelAndView = new ModelAndView("admin/product/productAdmin");
         modelAndView.addObject(SuccessConstants.IS_AUTHENTICATED, userAccessService.isCurrentUserAuthenticated());
         modelAndView.addObject(EntityConstant.PRODUCTS, productSimpleService.findAll());
         return modelAndView;
@@ -53,7 +53,7 @@ public class AdminProductController {
             productList.sort(Comparator.comparing(Product::getName, Collections.reverseOrder()));
         }
         model.addAttribute(EntityConstant.PRODUCTS, productList);
-        return "/admin/product/startPage";
+        return "admin/product/productAdmin";
     }
 
     @PostMapping(value = Http.SORTING_PRICE_ADMIN)
@@ -66,7 +66,7 @@ public class AdminProductController {
         }
         model.addAttribute(EntityConstant.PRODUCTS, productList);
         model.addAttribute(EntityConstant.CATEGORIES, subcategorySimpleService.findAll());
-        return "/admin/product/startPage";
+        return "admin/product/productAdmin";
     }
 
     @PostMapping(value = Http.SORTING_CATEGORY_ADMIN)
@@ -79,7 +79,7 @@ public class AdminProductController {
         }
         model.addAttribute(EntityConstant.PRODUCTS, productList);
         model.addAttribute(EntityConstant.CATEGORIES, subcategorySimpleService.findAll());
-        return "/admin/product/startPage";
+        return "admin/product/productAdmin";
 
     }
 
@@ -93,7 +93,7 @@ public class AdminProductController {
         }
         model.addAttribute(EntityConstant.PRODUCTS, productList);
         model.addAttribute(EntityConstant.CATEGORIES, subcategorySimpleService.findAll());
-        return "/admin/product/startPage";
+        return "admin/product/productAdmin";
 
     }
 

@@ -3,7 +3,6 @@ package by.edabudet.admin.controller;
 import by.edabudet.authentication.repository.UserRepository;
 import by.edabudet.authentication.service.UserAccessService;
 import by.edabudet.authentication.service.UserService;
-import by.edabudet.strings.EntityConstant;
 import by.edabudet.strings.Pages;
 import by.edabudet.strings.SuccessConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class AdminUsersController {
 
     @GetMapping(value = "/admin/users")
     public ModelAndView getUsersList(){
-        ModelAndView modelAndView = new ModelAndView("admin/user/startPage");
+        ModelAndView modelAndView = new ModelAndView("admin/user/usersAdmin");
         modelAndView.addObject(SuccessConstants.IS_AUTHENTICATED, userAccessService.isCurrentUserAuthenticated());
         modelAndView.addObject("userList", userRepository.findUserByActiveTrue());
         modelAndView.addObject("userListInactive", userRepository.findUserByActiveFalse());
